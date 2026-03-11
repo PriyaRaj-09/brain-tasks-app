@@ -1,91 +1,41 @@
-DevOps Practice Project – Dist Directory
+# Brain Tasks App - DevOps Deployment
 
-This repository contains the production-ready build files (dist folder) for DevOps practice and deployment exercises.
+## Application URL
+http://a9c306908864e4462b5c145d5b877d79-1278015007.ap-south-1.elb.amazonaws.com
 
-It is intentionally structured to help learners focus on CI/CD pipelines, hosting, containerization, and infrastructure setup rather than application development.
+## LoadBalancer ARN
+a9c306908864e4462b5c145d5b877d79-1278015007.ap-south-1.elb.amazonaws.com
 
-📁 What This Repository Contains
+## Tech Stack
+- React Application
+- Docker
+- AWS ECR
+- AWS EKS (Kubernetes)
+- AWS CodeBuild
+- AWS CodePipeline
+- AWS CloudWatch
 
-dist/ – Compiled and production-ready static files
+## Setup Instructions
 
-HTML
+### 1. Clone Repository
+git clone https://github.com/PriyaRaj-09/brain-tasks-app.git
+cd brain-tasks-app
 
-CSS
+### 2. Run Locally
+npm install
+npm start
 
-JavaScript
+### 3. Docker
+docker build -t brain-tasks-app:latest .
+docker run -d -p 3000:3000 brain-tasks-app:latest
 
-Assets (images, fonts, etc.)
+### 4. Deploy to EKS
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
 
-These files are ready to deploy to:
-
-Web servers (Nginx / Apache)
-
-Cloud platforms (AWS S3, Azure Blob, GCP Storage)
-
-Containerized environments (Docker + Nginx)
-
-Kubernetes clusters
-
-CI/CD pipeline demonstrations
-
-🎯 Purpose of This Repository
-
-This repository is designed for:
-
-DevOps beginners
-
-CI/CD practice
-
-Deployment pipeline testing
-
-Docker & Kubernetes deployment exercises
-
-Web server configuration practice
-
-Reverse proxy and load balancer setup
-
-The goal is to simulate real-world deployment scenarios using already built application files.
-
-❓ Why is there NO package.json?
-
-You may notice that this repository does not include:
-
-package.json
-
-node_modules
-
-Source code (src/)
-
-Build tools configuration
-
-✅ Reason:
-
-This repository only contains the final production build output (dist), not the development source code.
-
-In a typical project:
-
-Developers write source code.
-
-The project is built using tools like:
-
-Node.js
-
-Webpack
-
-Vite
-
-React (or other frameworks)
-
-A dist/ folder is generated.
-
-Only the production build is deployed to servers.
-
-This repository represents step 4 only.
-
-Since this is already the compiled output:
-
-No dependencies are required
-
-No build process is required
-
-No package.json is needed
+## Pipeline Explanation
+1. Developer pushes code to GitHub
+2. CodePipeline detects the change
+3. CodeBuild builds Docker image and pushes to ECR
+4. kubectl deploys updated image to EKS
+5. CloudWatch monitors all logs
